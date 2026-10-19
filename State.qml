@@ -135,7 +135,7 @@ Item {
         Radio {
           width: parent.cell
           height: parent.cell
-          glyph: "✈\uFE0E"
+          glyph: "⊘"
           checked: s.airplane
           onTapped: s.toggleAirplane()
         }
