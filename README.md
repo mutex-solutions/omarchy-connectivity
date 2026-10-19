@@ -26,6 +26,10 @@ omarchy plugin add https://github.com/mutex-solutions/omarchy-connectivity
 
 `install-bundle.sh` in the Deck repo wires it up with the other sections.
 
+In the cluster, **click a radio to toggle it, hold it to open that radio's own
+section page** (Wi-Fi or Bluetooth), which is how those pages stay reachable now
+that the cluster replaces their tiles.
+
 ## How it is built
 
 | File | Role |
