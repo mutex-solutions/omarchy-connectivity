@@ -40,6 +40,12 @@ Item {
   // The custom tile Deck loads when a section supplies one.
   property Component tileComponent: cluster
 
+  // A radio's hold opens that radio's own section page. Deck owns the page
+  // host, so this goes through Deck's IPC; outside Deck it is a no-op.
+  function openSection(id) {
+    Quickshell.execDetached(["omarchy-shell", "mutex-solutions.deck", "openSection", id])
+  }
+
   function toggleWifi() {
     Networking.wifiEnabled = !Networking.wifiEnabled
   }
@@ -99,6 +105,11 @@ Item {
   Component.onCompleted: refresh()
 
   Component {
+    id: tailscaleMark
+    TailscaleIcon { iconSize: Style.font.display }
+  }
+
+  Component {
     id: cluster
 
     Item {
@@ -111,23 +122,25 @@ Item {
         Radio {
           width: parent.cell
           height: parent.cell
-          glyph: "≋"
+          glyph: "󰤨"
           checked: s.wifi
           onTapped: s.toggleWifi()
+          onHeld: s.openSection("wifi")
         }
 
         Radio {
           width: parent.cell
           height: parent.cell
-          glyph: "ᛒ"
+          glyph: "󰂯"
           checked: s.bluetooth
           onTapped: s.toggleBluetooth()
+          onHeld: s.openSection("bluetooth")
         }
 
         Radio {
           width: parent.cell
           height: parent.cell
-          glyph: "◇"
+          iconComponent: tailscaleMark
           checked: s.tailscaleUp
           onTapped: s.toggleTailscale()
         }
@@ -135,7 +148,7 @@ Item {
         Radio {
           width: parent.cell
           height: parent.cell
-          glyph: "⊘"
+          glyph: "\uf072"
           checked: s.airplane
           onTapped: s.toggleAirplane()
         }
