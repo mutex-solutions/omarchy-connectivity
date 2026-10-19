@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "mutex-solutions.connectivity",
+  "name": "Connectivity",
+  "version": "0.1.0",
+  "author": "mutex-solutions",
+  "license": "MIT",
+  "description": "Wi-Fi, Bluetooth, Tailscale and airplane mode as one control for Omarchy: a bar widget or a Deck section.",
+  "kinds": ["bar-widget"],
+  "entryPoints": {
+    "barWidget": "Panel.qml"
+  },
+  "barWidget": {
+    "displayName": "Connectivity",
+    "description": "Radios at a glance",
+    "category": "Network",
+    "allowMultiple": false,
+    "defaultSection": "right"
+  }
+}
