@@ -33,7 +33,22 @@ Item {
   readonly property bool airplane: !wifi && !bluetooth && !tailscaleUp
 
   readonly property bool active: wifi || bluetooth || tailscaleUp
+  readonly property string label: "Connectivity"
   readonly property string icon: "≋"
+
+  readonly property string detail: {
+    var parts = []
+    if (wifi) parts.push("Wi-Fi")
+    if (bluetooth) parts.push("Bluetooth")
+    if (tailscaleUp) parts.push("Tailscale")
+    return parts.length ? parts.join(" · ") : "all off"
+  }
+
+  // The one notice this section can raise. Deck draws the strip; a section that
+  // has nothing to say returns null.
+  readonly property var notice: airplane
+    ? ({ severity: "info", title: "Airplane mode is on", detail: "Every radio is off" })
+    : null
 
   // The custom tile Deck loads when a section supplies one.
   property Component tileComponent: cluster
@@ -109,4 +124,62 @@ Item {
   }
 
   Component.onCompleted: refresh()
+
+  Component {
+    id: tailscaleMark
+    TailscaleIcon { iconSize: Style.font.display }
+  }
+
+  Component {
+    id: cluster
+
+    Item {
+      Grid {
+        anchors.fill: parent
+        columns: 2
+        // The four radios are the tile, not a picture of it: Deck draws a
+        // custom tile with no inset, so this spacing has to equal Deck's grid
+        // gap (Style.space(9) in Panel.qml) and each cell becomes exactly one
+        // grid unit. A different value here makes the 2x2 cluster wider or
+        // narrower than the 2x2 cells it occupies.
+        spacing: Style.space(9)
+        readonly property real cell: (width - spacing) / 2
+
+        Radio {
+          width: parent.cell
+          height: parent.cell
+          glyph: "󰤨"
+          checked: s.wifi
+          onTapped: s.toggleWifi()
+          onHeld: s.openSection("wifi")
+        }
+
+        Radio {
+          width: parent.cell
+          height: parent.cell
+          glyph: "󰂯"
+          checked: s.bluetooth
+          onTapped: s.toggleBluetooth()
+          onHeld: s.openSection("bluetooth")
+        }
+
+        Radio {
+          width: parent.cell
+          height: parent.cell
+          iconComponent: tailscaleMark
+          checked: s.tailscaleUp
+          onTapped: s.toggleTailscale()
+          onHeld: s.openSection("tailscale")
+        }
+
+        Radio {
+          width: parent.cell
+          height: parent.cell
+          glyph: "\uf072"
+          checked: s.airplane
+          onTapped: s.toggleAirplane()
+        }
+      }
+    }
+  }
 }

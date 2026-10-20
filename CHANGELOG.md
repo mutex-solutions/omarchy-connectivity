@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.5
+
+- The **optional 2x2 block** is back as a Deck section, for users who want the
+  four radios as one compact tile without arranging anything. It is not the
+  default way to use Deck: Wi-Fi, Bluetooth and Tailscale remain individual
+  sections in the catalogue, and this block is a convenience preset. The
+  standalone popup is unchanged.
+
 ## 0.1.4
 
 - **No longer a Deck section.** Connectivity is a standalone bar popup, not a
