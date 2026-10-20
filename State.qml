@@ -164,6 +164,7 @@ Item {
           iconComponent: tailscaleMark
           checked: s.tailscaleUp
           onTapped: s.toggleTailscale()
+          onHeld: s.openSection("tailscale")
         }
 
         Radio {

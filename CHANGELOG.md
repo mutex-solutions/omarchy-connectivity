@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.2
+
+- A hold on the Tailscale radio opens the Tailscale section's page
+  (`mutex-solutions.tailscale`), matching Wi-Fi and Bluetooth. The radio still
+  toggles on a tap; the page is where machines, exit nodes and sign-in live.
+
 ## 0.1.1
 
 - Tailscale state and the toggle now come from the upstream
