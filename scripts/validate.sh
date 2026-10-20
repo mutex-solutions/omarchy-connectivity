@@ -19,9 +19,10 @@ while read -r ep; do
   test -f "$ep" || { echo "missing entry point: $ep" >&2; exit 1; }
 done < <(jq -r '.entryPoints[]' manifest.json)
 
-# Deck sections, when present, must provide the section and the page.
+# This plugin is standalone-only. Its popup renders deck/Page.qml, so the
+# page must exist; there is deliberately no deck/Section.qml because Deck does
+# not register connectivity as a section.
 if [ -d deck ]; then
-  test -f deck/Section.qml || { echo "deck/Section.qml missing" >&2; exit 1; }
   test -f deck/Page.qml || { echo "deck/Page.qml missing" >&2; exit 1; }
 fi
 

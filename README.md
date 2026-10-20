@@ -1,8 +1,12 @@
 # Connectivity
 
-Wi-Fi, Bluetooth, Tailscale and airplane mode as one control for Omarchy. A bar
-widget, or a 2x2 section inside
-[Deck](https://github.com/mutex-solutions/omarchy-deck).
+Wi-Fi, Bluetooth, Tailscale and airplane mode as one popup for Omarchy.
+
+**Connectivity is deliberately not a [Deck](https://github.com/mutex-solutions/omarchy-deck)
+section.** It is a composite of four radios, and a composite hides the
+individual controls. Deck's catalogue carries Wi-Fi, Bluetooth and Tailscale as
+sections of their own, and a user can place and size them however they want.
+This plugin is the one-popup version for the bar.
 
 ## Standalone
 
@@ -10,42 +14,20 @@ widget, or a 2x2 section inside
 omarchy plugin add https://github.com/mutex-solutions/omarchy-connectivity --enable
 ```
 
-Click the icon for four switches.
-
-## Inside Deck
-
-```bash
-omarchy plugin add https://github.com/mutex-solutions/omarchy-connectivity
-```
-
-```json
-{ "id": "connectivity", "title": "Connectivity", "span": 2, "rows": 2,
-  "file": "/home/YOU/.config/omarchy/plugins/mutex-solutions.connectivity/deck/Section.qml",
-  "page": "/home/YOU/.config/omarchy/plugins/mutex-solutions.connectivity/deck/Page.qml" }
-```
-
-`install-bundle.sh` in the Deck repo wires it up with the other sections.
-
-In the cluster, **click a radio to toggle it, hold it to open that radio's own
-section page** (Wi-Fi or Bluetooth), which is how those pages stay reachable now
-that the cluster replaces their tiles.
+Click the icon for four switches: Wi-Fi, Bluetooth, Tailscale and airplane
+mode. Airplane mode is derived, not stored: it reads as on whenever every radio
+is off, and switching it on turns them all off.
 
 ## How it is built
 
 | File | Role |
 | --- | --- |
-| `State.qml` | the four radios, the derived airplane mode, and the 2x2 tile body |
-| `Radio.qml` | one square in the cluster |
-| `deck/Section.qml` | the five members Deck reads |
-| `deck/Page.qml` | the four switches |
+| `State.qml` | the four radios and the derived airplane mode |
+| `deck/Page.qml` | the four switches, rendered in this plugin's popup |
 | `Panel.qml` | the standalone bar widget |
 
-The 2x2 tile is the one place a section draws its own body: it supplies
-`tileComponent`, and Deck loads it in place of the default glyph-and-label
-content. That is what makes the cluster look like the design mock.
-
-The notice is the other half: while airplane mode is on the section publishes an
-info notice, and Deck draws it in the shared strip below the grid.
+The page is kept in `deck/` because the standalone popup loads it from there;
+there is no `deck/Section.qml`, and Deck does not register this plugin.
 
 ## Requirements
 
