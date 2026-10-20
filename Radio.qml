@@ -21,18 +21,20 @@ Item {
   Rectangle {
     anchors.fill: parent
     radius: Style.cornerRadius
-    // A tint, not a solid accent. Four solid squares made the whole block
-    // glare, and the hold progress bar (also accent) disappeared into it.
-    color: r.checked ? Util.alpha(Color.accent, 0.62) : Util.alpha(Color.foreground, 0.04)
+    // The same active and inactive tokens a normal Deck tile uses, so a radio
+    // in the block and a tile beside it read as the same kind of control.
+    color: r.checked ? Util.alpha(Color.accent, Style.selectedFillAlpha)
+                     : Util.alpha(Color.foreground, Style.normalFillAlpha)
     border.width: 1
-    border.color: r.checked ? Util.alpha(Color.accent, 0.85) : Util.alpha(Color.foreground, 0.28)
+    border.color: r.checked ? Util.alpha(Color.accent, 0.55)
+                            : Util.alpha(Color.foreground, Style.normalBorderAlpha)
   }
 
   Text {
     anchors.centerIn: parent
     visible: r.iconComponent === null
     text: r.glyph
-    color: r.checked ? Color.background : Util.alpha(Color.foreground, 0.7)
+    color: r.checked ? Color.accent : Util.alpha(Color.foreground, 0.7)
     font.family: Style.font.family
     font.pixelSize: Style.font.display
   }
@@ -48,7 +50,7 @@ Item {
 
   function applyIconColor() {
     if (iconLoader.item && "color" in iconLoader.item)
-      iconLoader.item.color = r.checked ? Color.background : Util.alpha(Color.foreground, 0.7)
+      iconLoader.item.color = r.checked ? Color.accent : Util.alpha(Color.foreground, 0.7)
   }
 
   onCheckedChanged: applyIconColor()

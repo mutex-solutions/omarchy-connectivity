@@ -29,8 +29,10 @@ Deck's default bundle; add it from the catalogue, or register it directly:
   "page": "/home/YOU/.config/omarchy/plugins/mutex-solutions.connectivity/deck/Page.qml" }
 ```
 
-The active radios use a tint rather than a solid accent fill, so the block does
-not glare and the tile's hold progress bar stays visible.
+The active radios use the same selected and inactive fills as any other Deck
+tile (`Style.selectedFillAlpha`, `Style.normalFillAlpha`), with an accent
+border and accent glyph when on, so the block does not glare and does not look
+like a different kind of control.
 
 ## How it is built
 

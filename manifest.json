@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "mutex-solutions.connectivity",
   "name": "Connectivity",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "author": "mutex-solutions",
   "license": "MIT",
   "description": "Wi-Fi, Bluetooth, Tailscale and airplane mode as one bar popup, or an optional 2x2 block in Deck.",

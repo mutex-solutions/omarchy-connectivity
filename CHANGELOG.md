@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.6
+
+- The radios use **the same active and inactive colours as every other Deck
+  tile**, not a special tint: the selected fill, the normal fill, the normal
+  border and an accent glyph when on. The block now reads as four small tiles
+  rather than a differently-coloured object.
+
 ## 0.1.5
 
 - The **optional 2x2 block** is back as a Deck section, for users who want the
