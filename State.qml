@@ -137,7 +137,12 @@ Item {
       Grid {
         anchors.fill: parent
         columns: 2
-        spacing: Style.space(8)
+        // The four radios are the tile, not a picture of it: Deck draws a
+        // custom tile with no inset, so this spacing has to equal Deck's grid
+        // gap (Style.space(9) in Panel.qml) and each cell becomes exactly one
+        // grid unit. A different value here makes the 2x2 cluster wider or
+        // narrower than the 2x2 cells it occupies.
+        spacing: Style.space(9)
         readonly property real cell: (width - spacing) / 2
 
         Radio {

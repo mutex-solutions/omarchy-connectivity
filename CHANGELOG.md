@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.3
+
+- The cluster now fills its 2x2 tile exactly. Deck draws a custom tile with no
+  inset, and the internal gap is the grid gap, so each radio is one grid unit
+  and the four together are the big square. Before this, the four squares
+  floated inside a padded tile.
+
 ## 0.1.2
 
 - A hold on the Tailscale radio opens the Tailscale section's page
