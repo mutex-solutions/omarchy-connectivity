@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.1
+
+- Tailscale state and the toggle now come from the upstream
+  `panels/tailscale/Service.qml`, loaded by URL. The CLI probe remains as the
+  fallback when the file is missing. Nothing is copied, so an Omarchy update to
+  that service reaches this section.
+- Verified in the shell: the service loaded, reported active after its first
+  poll, and `tailscaleUp` followed it while the CLI fallback agreed.
+
 ## 0.1.0
 
 First release.

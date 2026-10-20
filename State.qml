@@ -10,7 +10,20 @@ import qs.Commons
 Item {
   id: s
 
-  property bool tailscaleUp: false
+  // Tailscale state and actions come from the upstream Service.qml the stock
+  // panel uses. It is loaded by URL, never copied, so an Omarchy update to
+  // that file reaches this section. The CLI probe below is the fallback.
+  Loader {
+    id: tailscaleUpstream
+    source: "file:///usr/share/omarchy/shell/plugins/panels/tailscale/Service.qml"
+  }
+
+  readonly property var tailscaleService: tailscaleUpstream.item
+  readonly property bool tailscaleUp: tailscaleService
+    ? (tailscaleService.active === true)
+    : cliTailscaleUp
+
+  property bool cliTailscaleUp: false
 
   readonly property bool wifi: Networking.wifiEnabled
   readonly property var btAdapter: Bluetooth.defaultAdapter
@@ -55,7 +68,10 @@ Item {
   }
 
   function toggleTailscale() {
-    Quickshell.execDetached(["tailscale", tailscaleUp ? "down" : "up"])
+    if (tailscaleService && typeof tailscaleService.toggleTailscale === "function")
+      tailscaleService.toggleTailscale()
+    else
+      Quickshell.execDetached(["tailscale", tailscaleUp ? "down" : "up"])
     settleTimer.restart()
   }
 
@@ -66,7 +82,12 @@ Item {
     } else {
       Networking.wifiEnabled = false
       Quickshell.execDetached(["omarchy-bluetooth-power", "off"])
-      if (tailscaleUp) Quickshell.execDetached(["tailscale", "down"])
+      if (tailscaleUp) {
+        if (tailscaleService && typeof tailscaleService.down === "function")
+          tailscaleService.down()
+        else
+          Quickshell.execDetached(["tailscale", "down"])
+      }
     }
     settleTimer.restart()
   }
@@ -78,7 +99,7 @@ Item {
       waitForEnd: true
       onStreamFinished: {
         try {
-          s.tailscaleUp = JSON.parse(text || "{}").BackendState === "Running"
+          s.cliTailscaleUp = JSON.parse(text || "{}").BackendState === "Running"
         } catch (e) {
         }
       }
