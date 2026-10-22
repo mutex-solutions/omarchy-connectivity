@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.9
+
+- `deck/Airplane.qml`: airplane mode as an individual Deck section, for decks
+  that want the four radios as four movable tiles instead of the composite
+  block. It shares the same State; there is no page, a tap toggles.
+- Sharing now carries `sectionFile`, so an imported deck registers this file
+  rather than the block's `deck/Section.qml`.
+
 ## 0.1.8
 
 - The block has a body for each size: the 2x2 square keeps the four radios,

@@ -3,10 +3,12 @@
 Wi-Fi, Bluetooth, Tailscale and airplane mode as one popup for Omarchy.
 
 The recommended [Deck](https://github.com/mutex-solutions/omarchy-deck) setup
-uses the individual Wi-Fi, Bluetooth and Tailscale sections, so each radio can
-be placed and sized on its own. For a compact cluster, this plugin also ships
-an optional 2x2 block section: four radios in one tile. It is not installed by
-Deck's bundle; add it from the catalogue when you want the block.
+uses the individual sections, so each radio can be placed and sized on its
+own: Wi-Fi, Bluetooth, Tailscale and **Airplane** (`deck/Airplane.qml`). For a
+compact cluster, this plugin also ships an optional 2x2 block section: four
+radios in one tile. The block is one control, so its radios cannot be moved
+separately; the four individual sections are the alternative. Neither is
+installed by Deck's bundle.
 
 ## Standalone
 
@@ -40,6 +42,7 @@ like a different kind of control.
 | --- | --- |
 | `State.qml` | the four radios and the derived airplane mode |
 | `deck/Section.qml` | the optional 2x2 block |
+| `deck/Airplane.qml` | airplane mode as an individual Deck section |
 | `Radio.qml` | one square in the block |
 | `deck/Page.qml` | the four switches, rendered in this plugin's popup |
 | `Panel.qml` | the standalone bar widget |
