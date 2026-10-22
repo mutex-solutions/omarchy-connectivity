@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.10
+
+- Wi-Fi and Airplane tile glyphs come from the same Material icon set as the other Deck tiles, so their weight and size match.
+
 ## 0.1.9
 
 - `deck/Airplane.qml`: airplane mode as an individual Deck section, for decks

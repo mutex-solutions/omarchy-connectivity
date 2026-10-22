@@ -34,7 +34,7 @@ Item {
 
   readonly property bool active: wifi || bluetooth || tailscaleUp
   readonly property string label: "Connectivity"
-  readonly property string icon: "≋"
+  readonly property string icon: "󰖩"
 
   readonly property string detail: {
     // The half tile has one short line; the names are on the radios in the

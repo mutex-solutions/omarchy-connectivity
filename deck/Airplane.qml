@@ -11,7 +11,7 @@ Item {
   readonly property bool active: state ? state.airplane : false
   readonly property string label: "Airplane"
   readonly property string detail: active ? "on" : "off"
-  readonly property string icon: ""
+  readonly property string icon: "󰀝"
 
   function toggle() {
     if (state) state.toggleAirplane()
