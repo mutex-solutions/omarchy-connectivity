@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.7
+
+- Each radio carries a caption: Wi-Fi, Bluetooth, Tailscale, Airplane. The
+  block is readable at a glance and matches the labelled tiles around it.
+- The block sets `tileBleed`, so Deck draws no tinted tile behind the four
+  radios. The haze around the block is gone.
+- The Tailscale mark is scaled up to sit at the same optical size as the
+  font-glyph radios.
+
 ## 0.1.6
 
 - The radios use **the same active and inactive colours as every other Deck

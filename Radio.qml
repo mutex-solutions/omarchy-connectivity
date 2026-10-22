@@ -10,6 +10,7 @@ Item {
   id: r
 
   property string glyph: ""
+  property string caption: ""
   property Component iconComponent: null
   property bool checked: false
 
@@ -32,6 +33,7 @@ Item {
 
   Text {
     anchors.centerIn: parent
+    anchors.verticalCenterOffset: -Style.space(6)
     visible: r.iconComponent === null
     text: r.glyph
     color: r.checked ? Color.accent : Util.alpha(Color.foreground, 0.7)
@@ -39,11 +41,28 @@ Item {
     font.pixelSize: Style.font.display
   }
 
+  // A radio in the block is still a control with a name. The caption is what
+  // makes it recognisable next to the labelled tiles.
+  Text {
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    anchors.bottomMargin: Style.space(4)
+    horizontalAlignment: Text.AlignHCenter
+    visible: r.caption !== ""
+    text: r.caption
+    color: r.checked ? Color.accent : Util.alpha(Color.foreground, 0.55)
+    font.family: Style.font.family
+    font.pixelSize: Style.font.caption
+    elide: Text.ElideRight
+  }
+
   // Components (the Tailscale mark) cannot take a binding from here, so the
   // colour is pushed whenever the state changes.
   Loader {
     id: iconLoader
     anchors.centerIn: parent
+    anchors.verticalCenterOffset: -Style.space(6)
     sourceComponent: r.iconComponent
     onLoaded: r.applyIconColor()
   }

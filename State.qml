@@ -127,7 +127,9 @@ Item {
 
   Component {
     id: tailscaleMark
-    TailscaleIcon { iconSize: Style.font.display }
+    // The 3x3 dot mark reads smaller than a font glyph at the same nominal
+    // size; scale it up so it sits with Wi-Fi, Bluetooth and Airplane.
+    TailscaleIcon { iconSize: Style.font.display * 1.35 }
   }
 
   Component {
@@ -149,6 +151,7 @@ Item {
           width: parent.cell
           height: parent.cell
           glyph: "󰤨"
+          caption: "Wi-Fi"
           checked: s.wifi
           onTapped: s.toggleWifi()
           onHeld: s.openSection("wifi")
@@ -158,6 +161,7 @@ Item {
           width: parent.cell
           height: parent.cell
           glyph: "󰂯"
+          caption: "Bluetooth"
           checked: s.bluetooth
           onTapped: s.toggleBluetooth()
           onHeld: s.openSection("bluetooth")
@@ -167,6 +171,7 @@ Item {
           width: parent.cell
           height: parent.cell
           iconComponent: tailscaleMark
+          caption: "Tailscale"
           checked: s.tailscaleUp
           onTapped: s.toggleTailscale()
           onHeld: s.openSection("tailscale")
@@ -176,6 +181,7 @@ Item {
           width: parent.cell
           height: parent.cell
           glyph: "\uf072"
+          caption: "Airplane"
           checked: s.airplane
           onTapped: s.toggleAirplane()
         }
