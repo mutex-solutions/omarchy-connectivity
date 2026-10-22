@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.8
+
+- The block has a body for each size: the 2x2 square keeps the four radios,
+  the 4x1 full tile lays them out in a row with their names, and half and 1u
+  use Deck's default body. No more overflowing cluster at other sizes.
+- `tileBleed` applies only at the square, so the half and full views keep the
+  standard tile surface.
+- The half detail is a short status ("3 radios on", "all off", "airplane
+  mode") instead of a list that elided.
+
 ## 0.1.7
 
 - Each radio carries a caption: Wi-Fi, Bluetooth, Tailscale, Airplane. The

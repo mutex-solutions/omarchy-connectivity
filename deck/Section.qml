@@ -14,8 +14,10 @@ Item {
   // The four radios are the surface; do not put a tinted tile behind them.
   readonly property bool tileBleed: true
 
-  // This section draws its own tile body and publishes a notice.
-  readonly property Component tileComponent: state ? state.tileComponent : null
+  // The block belongs to the square size. Half and compact use Deck's default
+  // body; the full size gets the four radios in a row.
+  readonly property Component tileSquare: state ? state.tileComponent : null
+  readonly property Component tileFull: state ? state.tileFull : null
   readonly property var notice: state ? state.notice : null
 
   function toggle() {

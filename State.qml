@@ -37,11 +37,12 @@ Item {
   readonly property string icon: "≋"
 
   readonly property string detail: {
-    var parts = []
-    if (wifi) parts.push("Wi-Fi")
-    if (bluetooth) parts.push("Bluetooth")
-    if (tailscaleUp) parts.push("Tailscale")
-    return parts.length ? parts.join(" · ") : "all off"
+    // The half tile has one short line; the names are on the radios in the
+    // square and full views.
+    var n = (wifi ? 1 : 0) + (bluetooth ? 1 : 0) + (tailscaleUp ? 1 : 0)
+    if (airplane) return "airplane mode"
+    if (n === 0) return "all off"
+    return n + (n === 1 ? " radio on" : " radios on")
   }
 
   // The one notice this section can raise. Deck draws the strip; a section that
@@ -50,8 +51,10 @@ Item {
     ? ({ severity: "info", title: "Airplane mode is on", detail: "Every radio is off" })
     : null
 
-  // The custom tile Deck loads when a section supplies one.
+  // The custom tile Deck loads when a section supplies one. The square is
+  // the 2x2 block; the full size is a row of the same four radios.
   property Component tileComponent: cluster
+  property Component tileFull: rowCluster
 
   // A radio's hold opens that radio's own section page. Deck owns the page
   // host, so this goes through Deck's IPC; outside Deck it is a no-op.
@@ -130,6 +133,56 @@ Item {
     // The 3x3 dot mark reads smaller than a font glyph at the same nominal
     // size; scale it up so it sits with Wi-Fi, Bluetooth and Airplane.
     TailscaleIcon { iconSize: Style.font.display * 1.35 }
+  }
+
+  Component {
+    id: rowCluster
+
+    Item {
+      Row {
+        anchors.fill: parent
+        spacing: Style.space(9)
+
+        Radio {
+          width: (parent.width - 3 * parent.spacing) / 4
+          height: parent.height
+          glyph: "󰤨"
+          caption: "Wi-Fi"
+          checked: s.wifi
+          onTapped: s.toggleWifi()
+          onHeld: s.openSection("wifi")
+        }
+
+        Radio {
+          width: (parent.width - 3 * parent.spacing) / 4
+          height: parent.height
+          glyph: "󰂯"
+          caption: "Bluetooth"
+          checked: s.bluetooth
+          onTapped: s.toggleBluetooth()
+          onHeld: s.openSection("bluetooth")
+        }
+
+        Radio {
+          width: (parent.width - 3 * parent.spacing) / 4
+          height: parent.height
+          iconComponent: tailscaleMark
+          caption: "Tailscale"
+          checked: s.tailscaleUp
+          onTapped: s.toggleTailscale()
+          onHeld: s.openSection("tailscale")
+        }
+
+        Radio {
+          width: (parent.width - 3 * parent.spacing) / 4
+          height: parent.height
+          glyph: "\uf072"
+          caption: "Airplane"
+          checked: s.airplane
+          onTapped: s.toggleAirplane()
+        }
+      }
+    }
   }
 
   Component {
